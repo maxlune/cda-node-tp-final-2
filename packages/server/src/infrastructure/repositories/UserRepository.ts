@@ -24,4 +24,64 @@ export class UserRepository {
       throw new Error("Impossible de récupérer les utilisateurs");
     }
   }
+
+  /**
+   * Récupère un utilisateur en fonction de son id
+   */
+  getUserById(
+    id: string,
+    columns: UserColumns
+  ): Promise<Partial<User | undefined>> {
+    try {
+      return db.query.users.findFirst({
+        where: eq(users.id, id),
+        columns,
+      });
+    } catch (err) {
+      console.error(err);
+      throw new Error("Impossible de récupérer l'utilisateur");
+    }
+  }
+
+  /**
+   * Récupère un utilisateur en fonction de son username
+   */
+  getUserByUsername(
+    username: string,
+    columns: UserColumns
+  ): Promise<Partial<User | undefined>> {
+    try {
+      return db.query.users.findFirst({
+        where: eq(users.username, username),
+        columns,
+      });
+    } catch (err) {
+      console.error(err);
+      throw new Error("Impossible de récupérer l'utilisateur");
+    }
+  }
+
+  /**
+   * Création d'un nouvel utilisateur
+   */
+  createUser(user: NewUser) {
+    try {
+      return db.insert(users).values(user).execute();
+    } catch (err) {
+      console.error(err);
+      throw new Error("Impossible de créer l'utilisateur");
+    }
+  }
+
+  /**
+   * Met à jour un utilisateur
+   */
+  updateUser(user: User) {
+    try {
+      return db.update(users).set(user).where(eq(users.id, user.id)).execute();
+    } catch (err) {
+      console.error(err);
+      throw new Error("Impossible de mettre à jour l'utilisateur");
+    }
+  }
 }

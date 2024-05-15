@@ -1,6 +1,7 @@
 import { eq } from "drizzle-orm";
 import { db } from "../data";
 import { comments, movies, users } from "../data/schema";
+import { NewMovie } from "../../domain/entities/Movie";
 
 export class MoviesRepository {
   /**
@@ -15,18 +16,26 @@ export class MoviesRepository {
           id: movies.id,
           title: movies.title,
           year: movies.year,
-          author: {
-            id: users.id,
-            username: users.username,
-          },
         })
         .from(movies)
         .leftJoin(comments, eq(movies.id, comments.movieId))
-        .leftJoin(users, eq(movies.author, users.id))
         .execute();
     } catch (err) {
       console.error(err);
       throw new Error("Impossible de récupérer les films");
+    }
+  }
+
+  saveMovies(movie: NewMovie) {
+    try {
+      return db
+        .insert(movies)
+        .values(movie)
+        .returning({ id: movies.id })
+        .execute();
+    } catch (err) {
+      console.error(err);
+      throw new Error("Impossible de sauvegarder le film");
     }
   }
 }

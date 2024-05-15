@@ -6,10 +6,16 @@ import env from "./config/env";
 import cors from "cors";
 import router from "./infrastructure/web/routes";
 import helmet from "helmet";
+import { errorHandler } from "./middlewares/errorHandler";
+import cookieParser from "cookie-parser";
 
 const { PORT, FRONTEND_URL } = env;
 
 const app = express();
+
+app.use(cookieParser());
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
 app.use(
   cors({
@@ -26,6 +32,8 @@ app.get("/", function (req: Request, res: Response) {
 });
 
 app.use(router);
+
+app.use(errorHandler);
 
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);

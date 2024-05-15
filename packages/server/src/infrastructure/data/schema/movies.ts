@@ -5,7 +5,4 @@ export const movies = pgTable("movies", {
   id: uuid("id").defaultRandom().primaryKey(),
   title: varchar("title", { length: 255 }).notNull(),
   year: integer("year"),
-  author: uuid("author")
-    .references(() => users.id)
-    .notNull(),
 });
