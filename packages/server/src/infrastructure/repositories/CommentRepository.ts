@@ -1,23 +1,16 @@
+import { NewComment } from "../../domain/entities/Comment";
 import { db } from "../data";
 import { comments, movies, users } from "../data/schema";
 import { eq } from "drizzle-orm";
 
-/**
-   * Récupère la liste des commentaires
-  //  * TODO
-  //  * @returns {Comment[]}
-   */
 export class CommentRepository {
-  getAllComments() {
+  getCommentById(id: string) {
     try {
       return db
         .select({
           id: comments.id,
           content: comments.content,
-          movie: {
-            id: movies.id,
-            title: movies.title,
-          },
+          date: comments.date,
           author: {
             id: users.id,
             username: users.username,
@@ -25,11 +18,20 @@ export class CommentRepository {
         })
         .from(comments)
         .leftJoin(users, eq(users.id, comments.author))
-        .leftJoin(movies, eq(movies.id, comments.movieId))
+        .where(eq(comments.id, id))
         .execute();
     } catch (err) {
       console.error(err);
-      throw new Error("Impossible de récupérer les commentaires");
+      throw new Error("Impossible de récupérer le commentaire");
+    }
+  }
+
+  createComment(comment: NewComment) {
+    try {
+      return db.insert(comments).values(comment).execute();
+    } catch (err) {
+      console.error(err);
+      throw new Error("Impossible de créer le commentaire");
     }
   }
 }

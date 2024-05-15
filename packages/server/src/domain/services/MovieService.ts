@@ -14,7 +14,7 @@ export class MovieService {
   async addMovie(movie: NewMovie) {
     if (movie?.title?.trim().length < 1 || movie?.title?.trim().length < 1)
       return;
-    const newPost = await this.moviesRepository.saveMovies(movie);
-    return newPost[0].id;
+    const newMovie = await this.moviesRepository.saveMovies(movie);
+    return newMovie[0].id;
   }
 }
