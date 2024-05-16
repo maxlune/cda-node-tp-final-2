@@ -4,6 +4,7 @@ import userRoutes from "./userRoutes";
 import commentRoutes from "./commentRoutes";
 import ratingRoutes from "./ratingRoutes";
 import genreRoutes from "./genreRoutes";
+import favoriteRoutes from "./favoriteRoutes";
 
 const router = express.Router();
 
@@ -12,5 +13,6 @@ router.use("/movies", movieRoutes);
 router.use("/comments", commentRoutes);
 router.use("/ratings", ratingRoutes);
 router.use("/genres", genreRoutes);
+router.use("/favorites", favoriteRoutes);
 
 export default router;
