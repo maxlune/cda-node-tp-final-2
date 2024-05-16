@@ -7,7 +7,7 @@ export const comments = pgTable("comments", {
   content: text("content").notNull(),
   date: timestamp("date").defaultNow().notNull(),
   movieId: uuid("movieId")
-    .references(() => movies.id)
+    .references(() => movies.id, { onDelete: "cascade" })
     .notNull(),
   author: uuid("author")
     .references(() => users.id)
