@@ -4,7 +4,7 @@ import { comments, movies, users } from "../data/schema";
 import { eq } from "drizzle-orm";
 
 export class CommentRepository {
-  getCommentById(id: string) {
+  public getCommentById(id: string) {
     try {
       return db
         .select({
@@ -26,12 +26,36 @@ export class CommentRepository {
     }
   }
 
-  createComment(comment: NewComment) {
+  public createComment(comment: NewComment) {
     try {
       return db.insert(comments).values(comment).execute();
     } catch (err) {
       console.error(err);
       throw new Error("Impossible de créer le commentaire");
+    }
+  }
+
+  public deleteCommentById(id: string) {
+    try {
+      return db.delete(comments).where(eq(comments.id, id)).execute();
+    } catch (err) {
+      console.error(err);
+      throw new Error("Impossible de supprimer le commentaire");
+    }
+  }
+
+  public updateCommentById(id: string, content: string) {
+    try {
+      return db
+        .update(comments)
+        .set({
+          content,
+        })
+        .where(eq(comments.id, id))
+        .returning();
+    } catch (err) {
+      console.error(err);
+      throw new Error("Impossible de supprimer le commentaire");
     }
   }
 }

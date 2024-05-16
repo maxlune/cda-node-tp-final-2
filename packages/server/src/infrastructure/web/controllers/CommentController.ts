@@ -21,3 +21,16 @@ export const createComment = async (req: CustomRequest, res: Response) => {
   await commentService.createComment({ content, movieId, author: userId });
   response(res, { statusCode: 201, message: "Comment created" });
 };
+
+export const deleteCommentById = async (req: Request, res: Response) => {
+  const { id } = req.params;
+  await commentService.deleteCommentById(id);
+  response(res, { statusCode: 200, message: "Comment deleted" });
+};
+
+export const updateCommentById = async (req: Request, res: Response) => {
+  const { id } = req.params;
+  const { content } = req.body;
+  await commentService.updateCommentById(id, content);
+  response(res, { statusCode: 200, message: "Comment updated" });
+};

@@ -8,13 +8,23 @@ export class CommentService {
     this.commentRepository = new CommentRepository();
   }
 
-  getCommentById(id: string) {
+  public getCommentById(id: string) {
     if (!id || id.trim().length < 1) return;
     return this.commentRepository.getCommentById(id);
   }
 
-  createComment(comment: NewComment) {
+  public createComment(comment: NewComment) {
     if (!comment || comment.content.trim().length < 1) return;
     return this.commentRepository.createComment(comment);
+  }
+
+  public deleteCommentById(id: string) {
+    if (!id) return;
+    return this.commentRepository.deleteCommentById(id);
+  }
+
+  public updateCommentById(id: string, content: string) {
+    if (!id) return;
+    return this.commentRepository.updateCommentById(id, content);
   }
 }
