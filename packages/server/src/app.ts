@@ -10,12 +10,17 @@ import { errorHandler } from "./middlewares/errorHandler";
 import cookieParser from "cookie-parser";
 import swaggerUi from "swagger-ui-express";
 import YAML from "yamljs";
+import http from "http";
+import { initializeSocketServer } from "./infrastructure/web/sockets/server";
 
 const swaggerDocument = YAML.load("./swagger.yaml");
 
 const { PORT, FRONTEND_URL } = env;
 
 const app = express();
+
+const server = http.createServer(app);
+initializeSocketServer(server);
 
 app.use(cookieParser());
 app.use(express.json());
@@ -41,6 +46,6 @@ app.use(router);
 
 app.use(errorHandler);
 
-app.listen(PORT, () => {
+server.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
 });

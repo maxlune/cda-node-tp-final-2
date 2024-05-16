@@ -27,6 +27,11 @@ describe("MovieService", () => {
     await db.execute(sql`SET search_path TO test`);
   });
 
+  it("should add a new movie", async () => {
+    createdMovieID = await movieService.addMovie(newMovie);
+    expect(createdMovieID).toBeTruthy();
+  });
+
   it("should get all movies", async () => {
     const movies = await movieService.getAllMovies();
     movies.forEach((movie: any) => {
@@ -37,10 +42,5 @@ describe("MovieService", () => {
       });
       expectNullableAny(movie.title);
     });
-  });
-
-  it("should add a new movie", async () => {
-    createdMovieID = await movieService.addMovie(newMovie);
-    expect(createdMovieID).toBeTruthy();
   });
 });

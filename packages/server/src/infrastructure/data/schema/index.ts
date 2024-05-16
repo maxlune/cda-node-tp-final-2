@@ -5,5 +5,17 @@ import { ratings } from "./ratings";
 import { genres } from "./genres";
 import { favorites } from "./favorites";
 import { actors } from "./actors";
+import { rooms } from "./rooms";
+import { messages } from "./messages";
 
-export { movies, users, comments, ratings, genres, favorites, actors };
+export {
+  movies,
+  users,
+  comments,
+  ratings,
+  genres,
+  favorites,
+  actors,
+  rooms,
+  messages,
+};
