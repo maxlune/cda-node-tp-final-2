@@ -2,14 +2,14 @@ import express from "express";
 import {
   createComment,
   deleteCommentById,
-  getCommentsByMovieId,
+  getCommentsById,
   updateCommentById,
 } from "../controllers/CommentController";
 import { isAuthenticated } from "../../../middlewares/isAuthenticated";
 
 const router = express.Router();
 
-router.get("/:id", getCommentsByMovieId);
+router.get("/:id", getCommentsById);
 router.post("/:movieId", isAuthenticated, createComment);
 router.delete("/:id", deleteCommentById);
 router.put("/:id", updateCommentById);

@@ -5,6 +5,12 @@ import { ratings } from "../data/schema/ratings";
 import { NewRating } from "../../domain/entities/Rating";
 
 export class RatingRepository {
+  /**
+   * Récupère une note par son identifiant depuis la base de données.
+   * @param id - L'identifiant de la note à récupérer.
+   * @returns Les informations de la note correspondant à l'identifiant spécifié, y compris les détails du film noté et de l'auteur de la note.
+   * @throws Error si la récupération de la note échoue.
+   */
   public getRatingById(id: string) {
     try {
       return db
@@ -32,6 +38,12 @@ export class RatingRepository {
     }
   }
 
+  /**
+   * Crée une nouvelle note dans la base de données.
+   * @param rating - Les données de la nouvelle note à créer.
+   * @returns L'identifiant de la note créée.
+   * @throws Error si la création de la note échoue.
+   */
   public createRating(rating: NewRating) {
     try {
       return db.insert(ratings).values(rating).execute();
@@ -41,6 +53,12 @@ export class RatingRepository {
     }
   }
 
+  /**
+   * Supprime une note par son identifiant depuis la base de données.
+   * @param id - L'identifiant de la note à supprimer.
+   * @returns True si la suppression de la note réussit, sinon false.
+   * @throws Error si la suppression de la note échoue.
+   */
   public deleteRatingById(id: string) {
     try {
       return db.delete(ratings).where(eq(ratings.id, id)).execute();
@@ -50,6 +68,13 @@ export class RatingRepository {
     }
   }
 
+  /**
+   * Met à jour les informations d'une note par son identifiant dans la base de données.
+   * @param id - L'identifiant de la note à mettre à jour.
+   * @param rating - La nouvelle valeur de la note.
+   * @returns Les informations de la note mises à jour.
+   * @throws Error si la mise à jour de la note échoue.
+   */
   public updateRatingById(id: string, rating: number) {
     try {
       return db

@@ -2,14 +2,14 @@ import express from "express";
 import {
   createRating,
   deleteRatingById,
-  getRatingByMovieId,
+  getRatingById,
   updateRatingById,
 } from "../controllers/RatingController";
 import { isAuthenticated } from "../../../middlewares/isAuthenticated";
 
 const router = express.Router();
 
-router.get("/:id", getRatingByMovieId);
+router.get("/:id", getRatingById);
 router.post("/:movieId", isAuthenticated, createRating);
 router.delete("/:id", deleteRatingById);
 router.put("/:id", updateRatingById);

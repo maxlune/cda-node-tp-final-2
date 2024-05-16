@@ -3,15 +3,13 @@ import { users } from "../data/schema";
 import { User, NewUser, UserColumns } from "../../domain/entities/User";
 import { eq } from "drizzle-orm";
 
-/**
- * Repository qui gère le CRUD des utilisateurs
- * @returns {User[]} - Un tableau contenant tous les utilisateurs
- */
 export class UserRepository {
   /**
-   * Récupère tous les utilisateurs
+   * Récupère tous les utilisateurs de la base de données.
+   * @returns Une promesse résolue avec un tableau contenant tous les utilisateurs.
+   * @throws Error si la récupération des utilisateurs échoue.
    */
-  getAllUsers(): Promise<Partial<User>[]> {
+  public getAllUsers(): Promise<Partial<User>[]> {
     try {
       return db.query.users.findMany({
         columns: {
@@ -26,9 +24,13 @@ export class UserRepository {
   }
 
   /**
-   * Récupère un utilisateur en fonction de son id
+   * Récupère un utilisateur par son identifiant.
+   * @param id - L'identifiant de l'utilisateur à récupérer.
+   * @param columns - Les colonnes de l'utilisateur à récupérer.
+   * @returns Une promesse résolue avec les informations de l'utilisateur spécifié, ou undefined si l'utilisateur n'est pas trouvé.
+   * @throws Error si la récupération de l'utilisateur échoue.
    */
-  getUserById(
+  public getUserById(
     id: string,
     columns: UserColumns
   ): Promise<Partial<User | undefined>> {
@@ -44,9 +46,13 @@ export class UserRepository {
   }
 
   /**
-   * Récupère un utilisateur en fonction de son username
+   * Récupère un utilisateur par son nom d'utilisateur.
+   * @param username - Le nom d'utilisateur de l'utilisateur à récupérer.
+   * @param columns - Les colonnes de l'utilisateur à récupérer.
+   * @returns Une promesse résolue avec les informations de l'utilisateur spécifié, ou undefined si l'utilisateur n'est pas trouvé.
+   * @throws Error si la récupération de l'utilisateur échoue.
    */
-  getUserByUsername(
+  public getUserByUsername(
     username: string,
     columns: UserColumns
   ): Promise<Partial<User | undefined>> {
@@ -62,9 +68,12 @@ export class UserRepository {
   }
 
   /**
-   * Création d'un nouvel utilisateur
+   * Crée un nouvel utilisateur dans la base de données.
+   * @param user - Les informations du nouvel utilisateur à créer.
+   * @returns Une promesse résolue avec les informations de l'utilisateur créé.
+   * @throws Error si la création de l'utilisateur échoue.
    */
-  createUser(user: NewUser) {
+  public createUser(user: NewUser) {
     try {
       return db.insert(users).values(user).execute();
     } catch (err) {
@@ -74,9 +83,12 @@ export class UserRepository {
   }
 
   /**
-   * Met à jour un utilisateur
+   * Met à jour les informations d'un utilisateur dans la base de données.
+   * @param user - Les nouvelles informations de l'utilisateur à mettre à jour.
+   * @returns Une promesse résolue avec les informations de l'utilisateur mises à jour.
+   * @throws Error si la mise à jour de l'utilisateur échoue.
    */
-  updateUser(user: User) {
+  public updateUser(user: User) {
     try {
       return db.update(users).set(user).where(eq(users.id, user.id)).execute();
     } catch (err) {

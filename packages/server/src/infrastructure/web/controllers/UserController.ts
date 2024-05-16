@@ -13,6 +13,9 @@ const { NODE_ENV } = env;
 const userRepository = new UserRepository();
 const authService = new AuthService();
 
+/**
+ * Fonction de connexion de l'utilisateur.
+ */
 export const login = async (req: Request, res: Response) => {
   try {
     const { username, password } = req.body;
@@ -55,6 +58,9 @@ export const login = async (req: Request, res: Response) => {
   }
 };
 
+/**
+ * Fonction d'inscription d'un nouvel utilisateur.
+ */
 export const register = async (req: Request, res: Response) => {
   try {
     const { username, password } = req.body;
@@ -86,6 +92,9 @@ export const register = async (req: Request, res: Response) => {
   }
 };
 
+/**
+ * Fonction pour récupérer les informations de l'utilisateur connecté.
+ */
 export const me = async (req: CustomRequest, res: Response) => {
   try {
     response(res, { statusCode: 200, message: "OK", data: req.user });
@@ -95,6 +104,9 @@ export const me = async (req: CustomRequest, res: Response) => {
   }
 };
 
+/**
+ * Fonction de déconnexion de l'utilisateur.
+ */
 export const logout = async (req: Request, res: Response) => {
   try {
     res.clearCookie("accessToken");

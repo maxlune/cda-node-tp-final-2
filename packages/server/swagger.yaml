@@ -6,14 +6,22 @@ info:
 servers:
   - url: http://localhost:3000
 paths:
-  /:
+  /movies:
    get:
-    summary:
+    summary: Liste de tous les films
     responses:
       '200':
-        description: Hello World
+        description: Une liste de tous les films
         content:
           text/plain:
             schema:
-              type: string
-              example: Hello World
+              type: array
+              items:
+                $ref: './src/domain/entities/Movies.ts'
+              example: 
+                - id: 1
+                  title: "Film 1"
+                  year: 2022
+                - id: 2
+                  title: "Film 2"
+                  year: 2023

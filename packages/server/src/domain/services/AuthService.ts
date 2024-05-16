@@ -9,11 +9,11 @@ export class AuthService {
   private refreshTokenStore: Map<string, string> = new Map();
   private UserRepository = new UserRepository();
 
-  issueAccessToken(id: string): string {
+  public issueAccessToken(id: string): string {
     return jwt.sign({ userId: id }, JWT_SECRET, { expiresIn: "15m" });
   }
 
-  async issueRefreshToken(id: string): Promise<string> {
+  public async issueRefreshToken(id: string): Promise<string> {
     const refreshToken = jwt.sign({ userId: id }, REFRESH_SECRET, {
       expiresIn: "7d",
     });
@@ -31,7 +31,9 @@ export class AuthService {
     return refreshToken;
   }
 
-  async refreshAccessToken(refreshToken: string): Promise<string | void> {
+  public async refreshAccessToken(
+    refreshToken: string
+  ): Promise<string | void> {
     try {
       const payload = jwt.verify(
         refreshToken,

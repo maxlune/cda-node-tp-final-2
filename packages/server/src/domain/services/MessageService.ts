@@ -7,7 +7,19 @@ export class MessageService {
     this.messageRepository = new MessageRepository();
   }
 
-  sendMessage(data: { roomId: string; author: string; content: string }) {
+  /**
+   * Envoie un message dans une salle de discussion.
+   * @param data - Les données du message à envoyer.
+   * @param data.roomId - L'identifiant de la salle de discussion.
+   * @param data.author - L'auteur du message.
+   * @param data.content - Le contenu du message.
+   * @returns Le message envoyé, ou undefined si les données sont invalides.
+   */
+  public sendMessage(data: {
+    roomId: string;
+    author: string;
+    content: string;
+  }) {
     if (
       !data.roomId ||
       data.roomId?.trim()?.length < 5 ||
@@ -29,7 +41,14 @@ export class MessageService {
     );
   }
 
-  deleteMessage(data: { id: string; userId: string }) {
+  /**
+   * Supprime un message.
+   * @param data - Les données du message à supprimer.
+   * @param data.id - L'identifiant du message à supprimer.
+   * @param data.userId - L'identifiant de l'utilisateur effectuant la suppression.
+   * @returns True si le message a été supprimé avec succès, sinon false.
+   */
+  public deleteMessage(data: { id: string; userId: string }) {
     if (
       !data.id ||
       data.id?.trim()?.length < 5 ||

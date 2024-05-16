@@ -5,6 +5,12 @@ import { movies, users } from "../data/schema";
 import { favorites } from "../data/schema/favorites";
 
 export class FavoriteRepository {
+  /**
+   * Crée un nouveau favori dans la base de données.
+   * @param favorite - Les données du nouveau favori à créer.
+   * @returns L'identifiant du favori créé.
+   * @throws Error si la création du favori échoue.
+   */
   public createFavorite(favorite: NewFavorite) {
     try {
       return db.insert(favorites).values(favorite).execute();
@@ -14,6 +20,12 @@ export class FavoriteRepository {
     }
   }
 
+  /**
+   * Récupère un favori par son identifiant depuis la base de données.
+   * @param id - L'identifiant du favori à récupérer.
+   * @returns Les informations du favori correspondant à l'identifiant spécifié.
+   * @throws Error si la récupération du favori échoue.
+   */
   public getFavoriteById(id: string) {
     try {
       return db
@@ -40,6 +52,12 @@ export class FavoriteRepository {
     }
   }
 
+  /**
+   * Supprime un favori par son identifiant depuis la base de données.
+   * @param id - L'identifiant du favori à supprimer.
+   * @returns True si la suppression du favori réussit, sinon false.
+   * @throws Error si la suppression du favori échoue.
+   */
   public deleteFavoriteById(id: string) {
     try {
       return db.delete(favorites).where(eq(favorites.id, id)).execute();
@@ -49,6 +67,13 @@ export class FavoriteRepository {
     }
   }
 
+  /**
+   * Met à jour les informations d'un favori par son identifiant dans la base de données.
+   * @param id - L'identifiant du favori à mettre à jour.
+   * @param movieId - Le nouvel identifiant du film associé au favori.
+   * @returns Les informations du favori mises à jour.
+   * @throws Error si la mise à jour du favori échoue.
+   */
   public updateFavoriteById(id: string, movieId: string) {
     try {
       return db

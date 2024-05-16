@@ -43,4 +43,15 @@ describe("MovieService", () => {
       expectNullableAny(movie.title);
     });
   });
+
+  it("should get a movie by its id", async () => {
+    const movie = await movieService.getMovieById(createdMovieID || "");
+    expect(movie[0]).toEqual(
+      expect.objectContaining({
+        id: createdMovieID,
+        title: newMovie.title,
+        year: newMovie.year,
+      })
+    );
+  });
 });

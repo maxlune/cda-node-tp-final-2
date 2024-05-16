@@ -5,6 +5,9 @@ import { CustomRequest } from "../../../types/express";
 
 const movieService = new MovieService();
 
+/**
+ * Récupère tous les films.
+ */
 export const getAllMovies = async (req: Request, res: Response) => {
   const movies = await movieService.getAllMovies();
   console.table(movies);
@@ -16,6 +19,9 @@ export const getAllMovies = async (req: Request, res: Response) => {
   });
 };
 
+/**
+ * Crée un nouveau film.
+ */
 export const createMovie = async (req: CustomRequest, res: Response) => {
   const { title, year } = req.body;
 
@@ -27,6 +33,9 @@ export const createMovie = async (req: CustomRequest, res: Response) => {
   response(res, { statusCode: 201, message: "Movie created" });
 };
 
+/**
+ * Récupère un film par son identifiant.
+ */
 export const getMovieById = async (req: Request, res: Response) => {
   const movieId = req.params.id;
   const movie = await movieService.getMovieById(movieId);
@@ -38,12 +47,18 @@ export const getMovieById = async (req: Request, res: Response) => {
   }
 };
 
+/**
+ * Supprime un film par son identifiant.
+ */
 export const deleteMovieById = async (req: Request, res: Response) => {
   const { id } = req.params;
   await movieService.deleteMovieById(id);
   response(res, { statusCode: 200, message: "Movie deleted" });
 };
 
+/**
+ * Met à jour un film par son identifiant.
+ */
 export const updateMovieById = async (req: Request, res: Response) => {
   const { id } = req.params;
   const { title, year } = req.body;
