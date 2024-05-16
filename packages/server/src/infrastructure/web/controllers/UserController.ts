@@ -10,14 +10,14 @@ import { AuthService } from "../../../domain/services/AuthService";
 
 const { NODE_ENV } = env;
 
-const userRepo = new UserRepository();
+const userRepository = new UserRepository();
 const authService = new AuthService();
 
 export const login = async (req: Request, res: Response) => {
   try {
     const { username, password } = req.body;
 
-    const user = await userRepo.getUserByUsername(username, {
+    const user = await userRepository.getUserByUsername(username, {
       id: true,
       username: true,
       password: true,
@@ -67,7 +67,7 @@ export const register = async (req: Request, res: Response) => {
         message: "Invalid username or password",
       });
 
-    const existingUsername = await userRepo.getUserByUsername(username, {
+    const existingUsername = await userRepository.getUserByUsername(username, {
       username: true,
     });
     if (existingUsername)
@@ -78,7 +78,7 @@ export const register = async (req: Request, res: Response) => {
 
     const hashedPassword = await bcrypt.hash(password, 12);
 
-    userRepo.createUser({ username, password: hashedPassword });
+    userRepository.createUser({ username, password: hashedPassword });
     response(res, { statusCode: 201, message: "User created successfully" });
   } catch (error) {
     console.error(error);

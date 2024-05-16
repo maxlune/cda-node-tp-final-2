@@ -8,6 +8,10 @@ import router from "./infrastructure/web/routes";
 import helmet from "helmet";
 import { errorHandler } from "./middlewares/errorHandler";
 import cookieParser from "cookie-parser";
+import swaggerUi from "swagger-ui-express";
+import YAML from "yamljs";
+
+const swaggerDocument = YAML.load("./swagger.yaml");
 
 const { PORT, FRONTEND_URL } = env;
 
@@ -26,6 +30,8 @@ app.use(
 );
 
 app.use(helmet());
+
+app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
 app.get("/", function (req: Request, res: Response) {
   res.send("Hello World");
