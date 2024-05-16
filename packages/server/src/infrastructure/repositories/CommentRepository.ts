@@ -55,7 +55,7 @@ export class CommentRepository {
         .returning();
     } catch (err) {
       console.error(err);
-      throw new Error("Impossible de supprimer le commentaire");
+      throw new Error("Impossible de modifier le commentaire");
     }
   }
 }

@@ -29,6 +29,13 @@
       "when": 1715846986832,
       "tag": "0003_fancy_iron_monger",
       "breakpoints": true
+    },
+    {
+      "idx": 4,
+      "version": "6",
+      "when": 1715852105688,
+      "tag": "0004_mysterious_karnak",
+      "breakpoints": true
     }
   ]
 }

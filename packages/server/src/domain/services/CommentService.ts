@@ -9,7 +9,7 @@ export class CommentService {
   }
 
   public getCommentById(id: string) {
-    if (!id || id.trim().length < 1) return;
+    if (!id || id.trim().length < 5) return;
     return this.commentRepository.getCommentById(id);
   }
 
