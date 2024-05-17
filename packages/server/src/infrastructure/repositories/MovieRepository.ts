@@ -1,6 +1,13 @@
 import { and, eq } from "drizzle-orm";
 import { db } from "../data";
-import { comments, movies, users } from "../data/schema";
+import {
+  actors,
+  comments,
+  genres,
+  movies,
+  ratings,
+  users,
+} from "../data/schema";
 import { NewMovie } from "../../domain/entities/Movie";
 
 export class MoviesRepository {
@@ -16,9 +23,24 @@ export class MoviesRepository {
           id: movies.id,
           title: movies.title,
           year: movies.year,
+          rating: {
+            id: ratings.id,
+            rating: ratings.rating,
+          },
+          genre: {
+            id: genres.id,
+            genre: genres.title,
+          },
+          actors: {
+            id: actors.id,
+            actors: actors.name,
+          },
         })
         .from(movies)
         .leftJoin(comments, eq(movies.id, comments.movieId))
+        .leftJoin(ratings, eq(movies.id, ratings.movieId))
+        .leftJoin(genres, eq(movies.id, genres.movieId))
+        .leftJoin(actors, eq(movies.id, actors.movieId))
         .execute();
     } catch (err) {
       console.error(err);
@@ -44,9 +66,24 @@ export class MoviesRepository {
             content: comments.content,
             date: comments.date,
           },
+          rating: {
+            id: ratings.id,
+            rating: ratings.rating,
+          },
+          genre: {
+            id: genres.id,
+            genre: genres.title,
+          },
+          actors: {
+            id: actors.id,
+            actors: actors.name,
+          },
         })
         .from(movies)
         .leftJoin(comments, eq(movies.id, comments.movieId))
+        .leftJoin(ratings, eq(movies.id, ratings.movieId))
+        .leftJoin(genres, eq(movies.id, genres.movieId))
+        .leftJoin(actors, eq(movies.id, actors.movieId))
         .where(eq(movies.id, id))
         .execute();
     } catch (err) {

@@ -64,6 +64,20 @@
       "when": 1715862136359,
       "tag": "0008_open_maginty",
       "breakpoints": true
+    },
+    {
+      "idx": 9,
+      "version": "6",
+      "when": 1715934389648,
+      "tag": "0009_icy_ender_wiggin",
+      "breakpoints": true
+    },
+    {
+      "idx": 10,
+      "version": "6",
+      "when": 1715934430550,
+      "tag": "0010_secret_pestilence",
+      "breakpoints": true
     }
   ]
 }
